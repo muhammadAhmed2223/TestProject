@@ -1,0 +1,29 @@
+{
+    "locators": {
+      "emailField": "Uname",
+      "passwordField": "pass",
+      "loginButton": "loginbtn",
+      "forgotPasswordLink": "//div[@id='loginCard']//a[contains(text(), 'Forgot Password')]",
+      "invalidFieldLabel": "//div[@id='loginCard']//div[@class[contains(., 'login-content')]]/label[@for='login-error']",
+      "loading": "loading",
+      "loginCard": "loginCard"
+    },
+    "data": {
+      "good": [
+        {
+          "email": "ahmed@technevity.net",
+          "password": "Vst@54321"
+        }
+      ],
+      "bad": [
+        {
+          "email": "ahmed@technevity.net",
+          "password": "Vst@1234"
+        },
+        {
+          "email": "",
+          "password": "Vst@1234"
+        }
+      ]
+    }
+  }

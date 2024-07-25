@@ -1,0 +1,81 @@
+{
+    "locators": {
+        "gridContainer": "grid-container",
+        "addBusinessButton": "add-biz",
+        "addSubProductsButton": "btngetSubProducts",
+        "eventAnalysisButton": "btnEventAnalysis",
+        "systemListSelect": "systemList",
+        "businessSearchField": "businessname",
+        "cscListSelect": "CSClist",
+        "BusinessModal": {
+            "addEditBusinessModal": "add-edit-business",
+            "BusinessField": "BusinessName",
+            "BusinessCodeField": "Code",
+            "OfficePhoneField": "OfficePhone",
+            "EmailField": "Email",
+            "CountryField": "Country",
+            "Address1Field": "Address",
+            "Address2Field": "Address2",
+            "CityField": "City",
+            "StateSelect": "State",
+            "ZipField": "Zip",
+            "CSCField": "CSC",
+            "BusinessSystemSelect": "AddEditsystemList",
+            "FreeAnalysisField": "freeAnalysis",
+            "NoOfSensors": "noOfSensors",
+            "UserRestrictionCheck": "ISMDM",
+            "AdditionalRateField": "AdditionalRate",
+            "UploadButton": "upload-btn",
+            "BGImageFile": "bgImage",
+            "SubmitBusinessButton": "//*[@id=\"add-edit-business\"]/div/div/footer/button[2]",
+            "CancelAddBusinessButton": "//*[@id=\"add-edit-business\"]/div/div/footer/button[1]"
+        },
+        "branchPageHeading": "//*[@id=\"main-grid\"]/section/div/span[1]/h1"
+    },
+    "data": {
+        "good": [
+            {
+                "businessName": "TestBusiness121314",
+                "businessCode": "TB121314",
+                "officePhone": "93848727263",
+                "email": "",
+                "country": "USA",
+                "address1": "St 1",
+                "address2": "",
+                "city": "Los Angeles",
+                "state": "California",
+                "zip": "94565",
+                "csc": "MuhammadAhmed",
+                "vstSystem": "VSTAlert",
+                "freeAnalysis": "",
+                "noOfSensors": "",
+                "userRestriction": "false",
+                "additionalRate": "",
+                "searchBusiness": "TestBusiness91011",
+                "openBusiness": "TestBusiness 0498"
+            }
+        ],
+        "bad": [
+            {
+                "businessName": "TestBusiness111213",
+                "businessCode": "TB0498",
+                "officePhone": "93848727263",
+                "email": "",
+                "country": "USA",
+                "address1": "St 1",
+                "address2": "",
+                "city": "Los Angeles",
+                "state": "California",
+                "zip": "94565",
+                "csc": "MuhammadAhmed",
+                "vstSystem": "VSTAlert",
+                "freeAnalysis": "",
+                "noOfSensors": "",
+                "userRestriction": "false",
+                "additionalRate": "",
+                "searchBusiness": "TestBusiness91011",
+                "openBusiness": "TestBusiness 0498"
+            }
+        ]
+    }
+}

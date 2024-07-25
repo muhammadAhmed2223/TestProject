@@ -1,0 +1,19 @@
+{
+    "locators":{
+        "BluetoothLight":{
+            "Card":"//h1[contains(text(), 'Light')]/../..",
+            "Heading":"//h1[contains(text(), 'Light')]",
+            "SearchField":"//h1[contains(text(), 'Light')]/..//input",
+            "SearchBtn":"//h1[contains(text(), 'Light')]/../..//button[contains(text(), 'Search')]",
+            "AddBtn":"//h1[contains(text(), 'Light')]/../..//button[contains(text(), 'Add')]",
+            "DeleteBtn":"//h1[contains(text(), 'Light')]/../..//button[contains(text(), 'Delete')]",
+            "LightsRows":"//h1[contains(text(), 'Light')]/../..//tbody/tr",
+            "SortAsc":"//h1[contains(text(), 'Light')]/../..//span[@class[contains(., 'sorting-icon')]]/*[@class[contains(., 'up')]]",
+            "SortDesc":"//h1[contains(text(), 'Light')]/../..//span[@class[contains(., 'sorting-icon')]]/*[@class[contains(., 'down')]]",
+            "PagePrev":"(//h1[contains(text(), 'Light')]/../..//li[@class[contains(., 'page-list')]])[1]",
+            "PageFirst":"(//h1[contains(text(), 'Light')]/../..//li[@class[contains(., 'page-list')]])[2]",
+            "PageNext":"(//h1[contains(text(), 'Light')]/../..//li[@class[contains(., 'page-list')]])[last()]",
+            "PageLast":"(//h1[contains(text(), 'Light')]/../..//li[@class[contains(., 'page-list')]])[last()-1]"
+        }
+    }
+}
