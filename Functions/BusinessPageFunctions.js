@@ -146,8 +146,8 @@ var BusinessPageFunctions = function () {
         browser.sleep(500);
         searchSuccess = this.isBusinessInGrid(businessName);
 
-        if (searchInput) {
-            
+        if (searchSuccess) {
+            //For Logging
         }
     }
 }
