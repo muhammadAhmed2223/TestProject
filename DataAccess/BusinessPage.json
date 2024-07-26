@@ -27,10 +27,10 @@
             "AdditionalRateField": "AdditionalRate",
             "UploadButton": "upload-btn",
             "BGImageFile": "bgImage",
-            "SubmitBusinessButton": "//*[@id=\"add-edit-business\"]/div/div/footer/button[2]",
-            "CancelAddBusinessButton": "//*[@id=\"add-edit-business\"]/div/div/footer/button[1]"
+            "SubmitBusinessButton": "//div[@id='add-edit-business']//footer/button[@class='btn-green']",
+            "CancelAddBusinessButton": "//div[@id='add-edit-business']//footer/button[text()='Cancel']"
         },
-        "branchPageHeading": "//*[@id=\"main-grid\"]/section/div/span[1]/h1"
+        "branchPageHeading": "//h1[@data-bind='text:BusinessName']"
     },
     "data": {
         "good": [

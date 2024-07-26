@@ -130,7 +130,7 @@ var BusinessPageFunctions = function () {
         await selectDropdownFromText(select_State, state);
         enterTextField(text_Zip, zip);
         await selectDropdownFromText(select_CSC, CSC);
-        await selectDropdownFromText(select_SystemList, vstSystem);
+        await selectDropdownFromText(select_BusinessSystemList, vstSystem);
         enterTextField(text_FreeAnalysis, freeAnalysis);
         enterTextField(text_NoOfSensors, noOfSensors);
         if (userRestriction) {
