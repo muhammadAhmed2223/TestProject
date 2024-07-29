@@ -6,7 +6,9 @@
       "forgotPasswordLink": "//div[@id='loginCard']//a[contains(text(), 'Forgot Password')]",
       "invalidFieldLabel": "//div[@id='loginCard']//div[@class[contains(., 'login-content')]]/label[@for='login-error']",
       "loading": "loading",
-      "loginCard": "loginCard"
+      "loginCard": "loginCard",
+      "OTP":"userOtp",
+      "OTPButton":"Otpbtn"
     },
     "data": {
       "good": [

@@ -1,4 +1,5 @@
 const pageData = require("../DataAccess/LoginPage.json");
+const {loadCredentials, loadToken, authorize, listMessages} = require('../GmailReader/code.js');
 
 var LoginPageFunctions = function () {
 
@@ -27,12 +28,12 @@ var LoginPageFunctions = function () {
         loginButton.click();
     }
 
-    this.checkPositive = () => {
+    this.checkPositive = async () => {
         var check = this.isLoginFailed();
         expect(check).toBe(false);
     }
 
-    this.checkNegative = () => {
+    this.checkNegative = async () => {
         var check = this.isLoginFailed();
         expect(check).toBe(true);
     }
@@ -59,6 +60,18 @@ var LoginPageFunctions = function () {
             return false;
         } catch (error) {
             return false;
+        }
+    }
+
+    this.isOTPPagePresent = async (loadCredentials, loadToken, authorize, listMessages, auth) => {
+        const otpInput = element(by.id(locators.OTP));
+        const otpButton = element(by.id(locators.OTPButton));
+        if (otpInput.isDisplayed()) {
+            const code = await listMessages(auth);
+            console.log("OTP recieved: ", code);
+            otpInput.click();
+            enterTextField(otpInput, code);
+            otpButton.click();
         }
     }
 }

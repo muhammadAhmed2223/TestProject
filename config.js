@@ -5,7 +5,7 @@ exports.config = {
     },
     framework: 'jasmine',
     specs: ['TestCases/LoginTest.js'],
-    baseUrl: 'https://test-portal.vstalert.com/',
+    baseUrl: 'https://demo-portal.vstalert.com/',
     jasmineNodeOpts: {
         defaultTimeoutInterval: 30000,
         showColors: true

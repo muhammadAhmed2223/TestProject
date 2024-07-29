@@ -1,11 +1,21 @@
 const pageData = require("../DataAccess/LoginPage.json");
 const LoginPageFunctions = require("../Functions/LoginPageFunctions.js");
+const {loadCredentials, loadToken, authorize, listMessages} = require('../GmailReader/code.js');
 
 describe("Login Tests", () => {
     const data = pageData["data"];
+    let auth;
 
-    beforeAll(() => {
-        browser.get("/");
+    beforeAll(async () => {
+        try {
+          const credentials = await loadCredentials();
+          const token = await loadToken();
+          auth = await authorize(credentials, token);
+          browser.get("/");
+        } catch (error) {
+          console.log(error);
+          throw new Error('Authorization failed.');
+        }
     });
 
     it("Login Test (Negative)", () => {
@@ -17,12 +27,13 @@ describe("Login Tests", () => {
         });
     });
 
-    it("Login Test (Positive)", () => {
+    it("Login Test (Positive)", async () => {
         const correctData = data.good;
-        correctData.forEach(dataElement => {
-            LoginPageFunctions.performLogin(dataElement.email, dataElement.password);
-            browser.sleep(5000);
-            LoginPageFunctions.checkPositive();
-        })
+        for (const dataElement of correctData) {
+            await LoginPageFunctions.performLogin(dataElement.email, dataElement.password);
+            await browser.sleep(5000);
+            await LoginPageFunctions.checkPositive();
+            await LoginPageFunctions.isOTPPagePresent(loadCredentials, loadToken, authorize, listMessages, auth);
+        }
     });
 });
