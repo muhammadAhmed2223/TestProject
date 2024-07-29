@@ -76,7 +76,7 @@ var BusinessPageFunctions = function () {
     }
 
     async function selectDropdownFromText(select, text) {
-        const option = select.element(by.xpath(`//option[text()=${text}]`));
+        const option = select.element(by.xpath(`//option[text()='${text}']`));
         await option.click();
     }
 
