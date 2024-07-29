@@ -5,7 +5,7 @@ var BusinessPageFunctions = function () {
     const locators = pageData["locators"];
 
     const gridContainer = element(by.id(locators.gridContainer));
-    const btn_AddBusiness = element(by.id(locators.addBusinessButton));
+    const btn_AddBusiness = element(by.name(locators.addBusinessButton));
     const btn_AddSubproduct = element(by.id(locators.addSubProductsButton));
     const btn_EventAnalysis = element(by.id(locators.eventAnalysisButton));
     const select_SystemList = element(by.id(locators.systemListSelect));
@@ -35,14 +35,19 @@ var BusinessPageFunctions = function () {
     const heading_BranchPage = element(by.xpath(locators.branchPageHeading));
 
     const enterTextField = (field, text) => {
-        field.clear();
-        field.sendKeys(text);
+        if (text || text.trim().length !== 0){
+            field.clear();
+            field.sendKeys(text);
+        }
+        
     }
 
     const cancelBusinessModal = () => {
-        if (modal_AddEditBusiness.isDisplayed) {
-            btn_CancelAddBusiness.click();
-        }
+        modal_AddEditBusiness.isDisplayed().then((check) => {
+            if (check) {
+                btn_CancelAddBusiness.click();
+            }
+        })
     }
 
     const checkMandatoryField = (className, field) => {
@@ -57,67 +62,109 @@ var BusinessPageFunctions = function () {
         cancelBusinessModal();
         text_BusinessSearch.clear();
         text_BusinessSearch.sendKeys(searchInput);
-        text_BusinessSearch.sendKeys(Key.ENTER);
+        text_BusinessSearch.sendKeys(protractor.Key.ENTER);
+    }
+
+    this.businessSearchPositive = async (searchField) => {
+        this.performSearchBusiness(searchField);
+        await browser.sleep(700);
+        var check = await this.isBusinessInGrid(searchField);
+        expect(check).toBe(true);
+    }
+
+    this.businessSearchNegative = async (searchField) => {
+        this.performSearchBusiness(searchField);
+        await browser.sleep(700);
+        var check = await this.isBusinessInGrid(searchField);
+        expect(check).toBe(false);
+    }
+    
+    this.businessAddPositive = async (businessName, businessCode, officePhone, email, country, address1, address2, city, state, zip, CSC, vstSystem, freeAnalysis, noOfSensors,  userRestriction, additionalRate) => {
+        await this.performAddBusiness(businessName, businessCode, officePhone, email, country, address1, address2, city, state, zip, CSC, vstSystem, freeAnalysis, noOfSensors,  userRestriction, additionalRate);
+        await browser.sleep(1000);
+        check = await this.isBusinessAdded(businessName);
+        expect(check).toBe(true);
+    }
+    this.businessAddNegative = async (businessName, businessCode, officePhone, email, country, address1, address2, city, state, zip, CSC, vstSystem, freeAnalysis, noOfSensors,  userRestriction, additionalRate) => {
+        await this.performAddBusiness(businessName, businessCode, officePhone, email, country, address1, address2, city, state, zip, CSC, vstSystem, freeAnalysis, noOfSensors,  userRestriction, additionalRate);
+        await browser.sleep(1000);
+        check = await this.isBusinessAdded(businessName);
+        expect(check).toBe(false);
     }
 
     this.isBusinessInGrid = async function (searchInput) {
         cancelBusinessModal();
         const gridItems = await gridContainer.all(by.tagName("h2"));
 
-        gridItems.forEach((gridItem) => {
-            gridItem.getText().then((title) => {
-                if (title.toLowerCase().includes(searchInput.toLowerCase())) {
-                    return true;
-                }
-            });
-        });
+        for (const gridItem of gridItems) {
+            const title = await gridItem.getText();
+            var check = title.toLowerCase().includes(searchInput.toLowerCase());
+            if (check) {
+                return true;
+            }
+        }
 
         return false;
     }
 
     async function selectDropdownFromText(select, text) {
-        const option = select.element(by.xpath(`//option[text()='${text}']`));
+        const option = await select.element(by.xpath(`.//option[text()='${text}']`));
         await option.click();
     }
 
-    this.isBusinessAdded() = function () {
-        success = true;
-
-        if (modal_AddEditBusiness.isDisplayed()) {
+    this.isBusinessAdded = async function (businessName) {
+        let success = true;
+        const isDisplayed = await modal_AddEditBusiness.isDisplayed();
+        
+        if (isDisplayed) {
             const requiredFieldError = element(by.xpath("//*[@id=\"add-edit-business-form\"]/p"));
-            requiredFieldError.getText().then((text) => {
-                if (text === "Please fill the required fields") {
-                    const invalidClassName = "invalid-field";
+            const text = await requiredFieldError.getText();
+            
+            if (text === "Please fill the required fields") {
+                const invalidClassName = "invalid-field";
+                success = false;
+    
+                await checkMandatoryField(invalidClassName, text_BusinessName);
+                await checkMandatoryField(invalidClassName, text_BusinessCode);
+                await checkMandatoryField(invalidClassName, text_OfficePhone);
+                await checkMandatoryField(invalidClassName, text_Email);
+                await checkMandatoryField(invalidClassName, select_Country);
+                await checkMandatoryField(invalidClassName, text_Address);
+                await checkMandatoryField(invalidClassName, text_Address2);
+                await checkMandatoryField(invalidClassName, text_City);
+                await checkMandatoryField(invalidClassName, select_State);
+                await checkMandatoryField(invalidClassName, text_Zip);
+                await checkMandatoryField(invalidClassName, select_CSC);
+                await checkMandatoryField(invalidClassName, select_SystemList);
+                await checkMandatoryField(invalidClassName, text_FreeAnalysis);
+                await checkMandatoryField(invalidClassName, text_NoOfSensors);
+                await checkMandatoryField(invalidClassName, text_AdditionalRate);
+            }
+
+            const invalidLabels = await element.all(by.xpath(locators.BusinessModal.invalidLabels));
+            for (const label of invalidLabels) {
+                const labelText = await label.getText();
+                if (labelText || labelText.trim().length !== 0) {
+                    //For Test Logging
                     success = false;
-
-                    checkMandatoryField(invalidClassName, text_BusinessName);
-                    checkMandatoryField(invalidClassName, text_BusinessCode);
-                    checkMandatoryField(invalidClassName, text_OfficePhone);
-                    checkMandatoryField(invalidClassName, text_Email);
-                    checkMandatoryField(invalidClassName, select_Country);
-                    checkMandatoryField(invalidClassName, text_Address);
-                    checkMandatoryField(invalidClassName, text_Address2);
-                    checkMandatoryField(invalidClassName, text_City);
-                    checkMandatoryField(invalidClassName, select_State);
-                    checkMandatoryField(invalidClassName, text_Zip);
-                    checkMandatoryField(invalidClassName, select_CSC);
-                    checkMandatoryField(invalidClassName, select_SystemList);
-                    checkMandatoryField(invalidClassName, text_FreeAnalysis);
-                    checkMandatoryField(invalidClassName, text_NoOfSensors);
-                    checkMandatoryField(invalidClassName, text_AdditionalRate);
-
                 }
-            });
+            }
         }
-
+        else {
+            await this.performSearchBusiness(businessName);
+            await browser.sleep(500);
+            success = await this.isBusinessInGrid(businessName);
+        }
+    
         return success;
     }
+    
 
     this.performAddBusiness = async function (businessName, businessCode, officePhone, email, country, address1, address2, city, state, zip, CSC, vstSystem, freeAnalysis, noOfSensors,  userRestriction, additionalRate) {
         cancelBusinessModal();
         btn_AddBusiness.click();
         
-        browser.sleep(1000);
+        await browser.sleep(1000);
 
         enterTextField(text_BusinessName, businessName);
         enterTextField(text_BusinessCode, businessCode);
@@ -140,14 +187,26 @@ var BusinessPageFunctions = function () {
         await btn_SubmitBusiness.click();
     }
     
-    this.goToBusiness = function(businessName) {
-        cancelBusinessModal();
-        this.performSearchBusiness(businessName);
-        browser.sleep(500);
-        searchSuccess = this.isBusinessInGrid(businessName);
+    this.goToBusiness = async function(businessName) {
+        await cancelBusinessModal();
+        await this.performSearchBusiness(businessName);
+        await browser.sleep(500);
+        const searchSuccess = await this.isBusinessInGrid(businessName);
 
         if (searchSuccess) {
-            //For Logging
+            const gridItems = await gridContainer.all(by.tagName("h2"));
+
+            for (const gridItem of gridItems) {
+                const title = await gridItem.getText();
+                var check = title.toLowerCase().includes(searchInput.toLowerCase());
+                if (check) {
+                    gridItem.click();
+                    return true;
+                }
+            }
+        }
+        else {
+            return false;
         }
     }
 }

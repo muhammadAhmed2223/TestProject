@@ -28,15 +28,16 @@
             "UploadButton": "upload-btn",
             "BGImageFile": "bgImage",
             "SubmitBusinessButton": "//div[@id='add-edit-business']//footer/button[@class='btn-green']",
-            "CancelAddBusinessButton": "//div[@id='add-edit-business']//footer/button[text()='Cancel']"
+            "CancelAddBusinessButton": "//div[@id='add-edit-business']//footer/button[text()='Cancel']",
+            "invalidLabels":"//label[@class[contains(.,'invalid-field-label')]]"
         },
         "branchPageHeading": "//h1[@data-bind='text:BusinessName']"
     },
     "data": {
         "good": [
             {
-                "businessName": "TestBusiness121314",
-                "businessCode": "TB121314",
+                "businessName": "TestBusiness131415",
+                "businessCode": "TB131415",
                 "officePhone": "93848727263",
                 "email": "",
                 "country": "USA",
@@ -51,7 +52,7 @@
                 "noOfSensors": "",
                 "userRestriction": "false",
                 "additionalRate": "",
-                "searchBusiness": "TestBusiness91011",
+                "searchBusiness": "TestBusiness 0498",
                 "openBusiness": "TestBusiness 0498"
             }
         ],
@@ -73,7 +74,7 @@
                 "noOfSensors": "",
                 "userRestriction": "false",
                 "additionalRate": "",
-                "searchBusiness": "TestBusiness91011",
+                "searchBusiness": "TestBusiness 0498",
                 "openBusiness": "TestBusiness 0498"
             }
         ]

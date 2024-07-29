@@ -66,7 +66,8 @@ var LoginPageFunctions = function () {
     this.isOTPPagePresent = async (loadCredentials, loadToken, authorize, listMessages, auth) => {
         const otpInput = element(by.id(locators.OTP));
         const otpButton = element(by.id(locators.OTPButton));
-        if (otpInput.isDisplayed()) {
+        check = await otpInput.isPresent();
+        if (check) {
             const code = await listMessages(auth);
             console.log("OTP recieved: ", code);
             otpInput.click();

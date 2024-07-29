@@ -4,8 +4,8 @@ exports.config = {
         browserName: 'chrome'
     },
     framework: 'jasmine',
-    specs: ['TestCases/LoginTest.js'],
-    baseUrl: 'https://demo-portal.vstalert.com/',
+    specs: ['TestCases/LoginTest.js', 'TestCases/BusinessTest.js'],
+    baseUrl: 'https://test-portal.vstalert.com/',
     jasmineNodeOpts: {
         defaultTimeoutInterval: 30000,
         showColors: true

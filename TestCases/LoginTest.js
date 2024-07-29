@@ -18,22 +18,23 @@ describe("Login Tests", () => {
         }
     });
 
-    it("Login Test (Negative)", () => {
+    it("Login Test (Negative)", async () => {
         const incorrectData = data.bad;
-        incorrectData.forEach(dataElement => {
+        for (const dataElement of incorrectData) {
             LoginPageFunctions.performLogin(dataElement.email, dataElement.password);
-            browser.sleep(1000);
+            await browser.sleep(1000);
             LoginPageFunctions.checkNegative();
-        });
+        }
     });
 
     it("Login Test (Positive)", async () => {
         const correctData = data.good;
         for (const dataElement of correctData) {
             await LoginPageFunctions.performLogin(dataElement.email, dataElement.password);
-            await browser.sleep(5000);
+            await browser.sleep(3000);
             await LoginPageFunctions.checkPositive();
             await LoginPageFunctions.isOTPPagePresent(loadCredentials, loadToken, authorize, listMessages, auth);
+            await browser.sleep(5000);
         }
     });
 });
