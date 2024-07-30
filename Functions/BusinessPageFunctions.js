@@ -164,7 +164,7 @@ var BusinessPageFunctions = function () {
         btn_AddBusiness.click();
         
         await browser.sleep(1000);
-
+        
         enterTextField(text_BusinessName, businessName);
         enterTextField(text_BusinessCode, businessCode);
         enterTextField(text_OfficePhone, officePhone);
