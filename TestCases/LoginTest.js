@@ -33,7 +33,7 @@ describe("Login Tests", () => {
             await LoginPageFunctions.performLogin(dataElement.email, dataElement.password);
             await browser.sleep(3000);
             await LoginPageFunctions.checkPositive();
-            await LoginPageFunctions.isOTPPagePresent(loadCredentials, loadToken, authorize, listMessages, auth);
+            await LoginPageFunctions.isOTPPagePresent(listMessages, auth);
             await browser.sleep(5000);
         }
     });

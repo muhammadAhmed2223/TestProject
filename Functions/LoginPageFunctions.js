@@ -62,7 +62,7 @@ var LoginPageFunctions = function () {
         }
     }
 
-    this.isOTPPagePresent = async (loadCredentials, loadToken, authorize, listMessages, auth) => {
+    this.isOTPPagePresent = async (listMessages, auth) => {
         const otpInput = element(by.id(locators.OTP));
         const otpButton = element(by.id(locators.OTPButton));
         check = await otpInput.isPresent();
