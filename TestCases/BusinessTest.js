@@ -36,7 +36,7 @@ describe("Business Tests", () => {
         }
     });
 
-    it("Go to Business Test", async () => {
+    fit("Go to Business Test", async () => {
         const correctData = data.good;
 
         for (const dataElement of correctData) {

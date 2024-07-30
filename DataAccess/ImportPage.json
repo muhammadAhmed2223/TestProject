@@ -1,5 +1,16 @@
 {
     "locators":{
+        "ErrorModal":{
+            "Modal":"//div[@class[contains(., 'an-error-occured-modal')]]/div",
+            "Desc":"//div[@class[contains(., 'an-error-occured-modal')]]//h6[@class[contains(., 'desc')]]",
+            "Heading":"//div[@class[contains(., 'an-error-occured-modal')]]//h6[@class[contains(., 'heading')]]",
+            "Close_Btn":"//div[@class[contains(., 'an-error-occured-modal')]]//button"
+        },
+        "SuccessModal":{
+            "Modal":"//div[@class[contains(., 'saved-cahnges')]]/div",
+            "Heading":"//div[@class[contains(., 'saved-cahnges')]]//h6[@class[contains(., 'heading')]]",
+            "Close_Btn":"//div[@class[contains(., 'saved-cahnges')]]//button"
+        },
         "BluetoothLight":{
             "Card":"//h1[contains(text(), 'Light')]/../..",
             "Heading":"//h1[contains(text(), 'Light')]",
@@ -13,7 +24,50 @@
             "PagePrev":"(//h1[contains(text(), 'Light')]/../..//li[@class[contains(., 'page-list')]])[1]",
             "PageFirst":"(//h1[contains(text(), 'Light')]/../..//li[@class[contains(., 'page-list')]])[2]",
             "PageNext":"(//h1[contains(text(), 'Light')]/../..//li[@class[contains(., 'page-list')]])[last()]",
-            "PageLast":"(//h1[contains(text(), 'Light')]/../..//li[@class[contains(., 'page-list')]])[last()-1]"
+            "PageLast":"(//h1[contains(text(), 'Light')]/../..//li[@class[contains(., 'page-list')]])[last()-1]",
+            "AddModal":{
+                "Modal":"//h4[text()='Add Bluetooth Light']/../..",
+                "Heading":"//h4[text()='Add Bluetooth Light']",
+                "BTID_Label":"//h4[text()='Add Bluetooth Light']/../..//label[text()='Bluetooth Notification Light ID*']",
+                "BTID_Input":"//h4[text()='Add Bluetooth Light']/../..//input[@placeholder=' Notification Light ID']",
+                "BTID_Invalid":"//h4[text()='Add Bluetooth Light']/../..//p",
+                "Branch_Label":"//h4[text()='Add Bluetooth Light']/../..//label[text()='Branch*']",
+                "Branch_Dropdown":"//h4[text()='Add Bluetooth Light']/../..//div[text()=' Select a Branch ']",
+                "Branch_DropdownOptions":"//h4[text()='Add Bluetooth Light']/../..//div[text()=' Select a Branch ']/..//li",
+                "Unit_Label":"//h4[text()='Add Bluetooth Light']/../..//label[text()='Unit*']",
+                "Unit_Dropdown":"//h4[text()='Add Bluetooth Light']/../..//div[text()=' Select a Unit ']",
+                "Unit_DropdownOptions":"//h4[text()='Add Bluetooth Light']/../..//div[text()=' Select a Unit ']/..//li",
+                "Cancel_Btn":"//h4[text()='Add Bluetooth Light']/../..//button[text() =' Cancel ']",
+                "AddLight_Btn":"//h4[text()='Add Bluetooth Light']/../..//button[text() =' Add Light ']",
+                "CloseIcon_Btn":"//h4[text()='Add Bluetooth Light']/../..//button[@aria-label='Close']"
+            }
         }
+    },
+    "data":{
+        "good":[
+            {
+                "BluetoothLight":{
+                    "LightID":"PRN501",
+                    "BranchID":"Auto_branch",
+                    "Unit":"5"
+                }
+            }
+        ],
+        "bad":[
+            {
+                "BluetoothLight":{
+                    "LightID":"PRN001",
+                    "BranchID":"Auto_branch",
+                    "Unit":"4"
+                }
+            },
+            {
+                "BluetoothLight":{
+                    "LightID":"",
+                    "BranchID":"",
+                    "Unit":""
+                }
+            }
+        ]
     }
 }

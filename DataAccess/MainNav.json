@@ -1,0 +1,14 @@
+{
+    "locators":{
+        "nav":"side-nav-container",
+        "Business":"BusinessIcon",
+        "Usage":"UsageIcon",
+        "Dashboard":"dashboardsIcon",
+        "Updates":"UpdatesIcon",
+        "Users":"UsersIcon",
+        "Reports":"ReportIcon",
+        "Imports":"ImportIcon",
+        "Settings":"SettingsIcon",
+        "Logout":"logoutUserMFromMenu"
+    }
+}

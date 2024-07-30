@@ -1,0 +1,79 @@
+{
+    "locators": {
+        "addBranchButton": "//button[text()='Add Branch']",
+        "addRegionButton": "//button[text()='Add Region']",
+        "branchSearchBar": "searchbyname",
+        "regionGrid": "//div[@data-bind='foreach: RegionListFiltered']",
+        "branchGrid": "//div[@data-bind='foreach: BranchListFiltered']",
+        "regionHeading": "//h2[text()='Regions']",
+        "branchHeading": "//h2[text()='Branches']",
+        "addEditBranchModal": "add-edit-branch",
+        "addEditRegionModal": "add-edit-regions",
+        "BranchModal": {
+            "modalBranchRegionSelect": "Region",
+            "modalBranchBranchNameField": "BranchName",
+            "modalBranchBranchCodeField": "BranchCode",
+            "modalBranchOfficePhoneField": "OfficePhone",
+            "modalBranchEmailField": "Email",
+            "modalBranchCountrySelect": "Country",
+            "modalBranchAddress1Field": "AddressLine1",
+            "modalBranchAddress2Field": "AddressLine2",
+            "modalBranchCityField": "City",
+            "modalBranchStateSelect": "State",
+            "modalBranchZipField": "Zip",
+            "modalBranchNoOfSensorsField": "ContractNoofSensors",
+            "modalBranchBgImageButton": "bgImagebranch",
+            "modalBranchCommunitySelect": "CommunityType",
+            "modalBranchCancelButton": "//*[@id=\"add-edit-branch\"]/div/div/footer/button[1]",
+            "modalBranchAddBranchButton": "//*[@id=\"add-edit-branch\"]/div/div/footer/button[2]",
+            "modalRegionRegionNameField": "RegionName",
+            "modalRegionCancelButton": "//*[@id=\"add-edit-regions\"]/div/div/footer/button[1]",
+            "modalRegionAddRegionButton": "creatregion"
+        },
+        "mainNav":"side-nav-container"
+    },
+    "data": {
+        "good": [
+            {
+                "addRegionName": " ",
+                "addBranchRegion": "Region R001",
+                "addBranchName": "TB234 B001",
+                "addBranchCode": "TB234B001",
+                "addBranchPhone": "9284924829",
+                "addBranchEmail": "",
+                "addBranchCountry": "USA",
+                "addBranchAddress1": "St 3",
+                "addBranchAddress2": "",
+                "addBranchCity": "Los Angeles",
+                "addBranchState": "California",
+                "addBranchZip": "94565",
+                "addBranchNoOfSensors": "232",
+                "addBranchCommunity": "Memory Care",
+                "searchBarBranch": "B001",
+                "searchBarRegion": "R001",
+                "openBranch": "Auto_branch"
+            }
+        ],
+        "bad": [
+            {
+                "addRegionName": " ",
+                "addBranchRegion": "Region R001",
+                "addBranchName": "B001",
+                "addBranchCode": "TB0498B001",
+                "addBranchPhone": "9284924829",
+                "addBranchEmail": "",
+                "addBranchCountry": "USA",
+                "addBranchAddress1": "St 3",
+                "addBranchAddress2": "",
+                "addBranchCity": "Los Angeles",
+                "addBranchState": "California",
+                "addBranchZip": "94565",
+                "addBranchNoOfSensors": "232",
+                "addBranchCommunity": "Memory Care",
+                "searchBarBranch": "B001",
+                "searchBarRegion": "R001",
+                "openBranch": "B001"
+            }
+        ]
+    }
+}

@@ -27,11 +27,11 @@ describe("Login Tests", () => {
         }
     });
 
-    it("Login Test (Positive)", async () => {
+    fit("Login Test (Positive)", async () => {
         const correctData = data.good;
         for (const dataElement of correctData) {
             await LoginPageFunctions.performLogin(dataElement.email, dataElement.password);
-            await browser.sleep(3000);
+            await browser.sleep(5000);
             await LoginPageFunctions.checkPositive();
             await LoginPageFunctions.isOTPPagePresent(listMessages, auth);
             await browser.sleep(5000);

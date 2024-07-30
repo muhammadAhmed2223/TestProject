@@ -1,4 +1,5 @@
 const pageData = require("../DataAccess/BusinessPage.json");
+const {enterTextField, selectDropdownFromText} = require("./BaseFunctions");
 
 var BusinessPageFunctions = function () {
     
@@ -33,14 +34,6 @@ var BusinessPageFunctions = function () {
     const btn_SubmitBusiness = element(by.xpath(locators.BusinessModal.SubmitBusinessButton));
     const btn_CancelAddBusiness = element(by.xpath(locators.BusinessModal.CancelAddBusinessButton));
     const heading_BranchPage = element(by.xpath(locators.branchPageHeading));
-
-    const enterTextField = (field, text) => {
-        if (text || text.trim().length !== 0){
-            field.clear();
-            field.sendKeys(text);
-        }
-        
-    }
 
     const cancelBusinessModal = async () => {
         const check = await modal_AddEditBusiness.isDisplayed();
@@ -106,11 +99,6 @@ var BusinessPageFunctions = function () {
         return false;
     }
 
-    async function selectDropdownFromText(select, text) {
-        const option = await select.element(by.xpath(`.//option[text()='${text}']`));
-        await option.click();
-    }
-
     this.isBusinessAdded = async function (businessName) {
         let success = true;
         const isDisplayed = await modal_AddEditBusiness.isDisplayed();
@@ -164,7 +152,7 @@ var BusinessPageFunctions = function () {
         btn_AddBusiness.click();
         
         await browser.sleep(1000);
-        
+
         enterTextField(text_BusinessName, businessName);
         enterTextField(text_BusinessCode, businessCode);
         enterTextField(text_OfficePhone, officePhone);
@@ -200,6 +188,7 @@ var BusinessPageFunctions = function () {
                 var check = title.toLowerCase().includes(businessName.toLowerCase());
                 if (check) {
                     await gridItem.click();
+                    await browser.sleep(8000);
                     return true;
                 }
             }

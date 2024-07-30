@@ -1,4 +1,5 @@
 const pageData = require("../DataAccess/LoginPage.json");
+const {enterTextField} = require("./BaseFunctions");
 
 var LoginPageFunctions = function () {
 
@@ -14,11 +15,6 @@ var LoginPageFunctions = function () {
 
     this.isPageLoaded = () => {
         return loginCard.isDisplayed();
-    }
-
-    const enterTextField = (field, text) => {
-        field.clear();
-        field.sendKeys(text);
     }
 
     this.performLogin = (email, password) => {
