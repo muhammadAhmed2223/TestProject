@@ -7,9 +7,36 @@ var ImportPageFunctions = function () {
 
     const addLightBtn = element(by.xpath(locators.BluetoothLight.AddBtn));
 
+    this.verifyAddLightModal = async() => {
+
+        await addLightBtn.click();
+        
+        await browser.sleep(1000);
+
+        const modalHeading = await element(by.xpath(locators.BluetoothLight.AddModal.Heading));
+        const BTIDLabel = await element(by.xpath(locators.BluetoothLight.AddModal.BTID_Label));
+        const BTIDInput = await element(by.xpath(locators.BluetoothLight.AddModal.BTID_Input));
+        const BranchLabel = await element(by.xpath(locators.BluetoothLight.AddModal.Branch_Label));
+        const branchDropdown = await element(by.xpath(locators.BluetoothLight.AddModal.Branch_Dropdown));
+        const UnitLabel = await element(by.xpath(locators.BluetoothLight.AddModal.Unit_Label));
+        const unitDropdown = await element(by.xpath(locators.BluetoothLight.AddModal.Unit_Dropdown));
+        const cancelBtn = await element(by.xpath(locators.BluetoothLight.AddModal.Cancel_Btn));
+        const addBtn = await element(by.xpath(locators.BluetoothLight.AddModal.AddLight_Btn));
+        const closeBtn = await element(by.xpath(locators.BluetoothLight.AddModal.CloseIcon_Btn));
+
+        const elementsToCheck = [modalHeading, BTIDLabel, BTIDInput, BranchLabel, branchDropdown, UnitLabel, unitDropdown, cancelBtn, addBtn, closeBtn];
+
+        const visible = await checkVisibilityOfElements(elementsToCheck);
+
+        expect(visible).toBe(true, "Elements not visible");
+
+        await element(by.xpath(locators.BluetoothLight.AddModal.CloseIcon_Btn)).click();
+        browser.sleep(2000);
+    }
+
     this.addLightPositive = async (lightID, branchName, unitName) => {
         await this.addLight(lightID, branchName, unitName);
-        browser.sleep(3000);
+        await browser.sleep(3000);
 
         const isSuccess = await element(by.xpath(locators.SuccessModal.Modal)).isPresent();
 
@@ -21,10 +48,13 @@ var ImportPageFunctions = function () {
         const isFailed = await element(by.xpath(locators.ErrorModal.Modal)).isPresent();
 
         if (isFailed) {
+            const failMessage = await element(by.xpath(locators.ErrorModal.Desc)).getText();
+            expect(isFailed).toBe(false, "An Error has occurred: " + failMessage);
+
             await element(by.xpath(locators.ErrorModal.Close_Btn)).click();
-            browser.sleep(2000);
+            await browser.sleep(2000);
             await element(by.xpath(locators.BluetoothLight.AddModal.Cancel_Btn)).click();
-            browser.sleep(2000);
+            await browser.sleep(2000);
         }
 
         const check = await this.lightModalError();
@@ -35,7 +65,7 @@ var ImportPageFunctions = function () {
             return;
         }
 
-        browser.sleep(2000);
+        await browser.sleep(2000);
 
         const isAdded = await this.lightPagesSearch(lightID);
 
@@ -108,33 +138,19 @@ var ImportPageFunctions = function () {
         
         await browser.sleep(1000);
 
-        const modalHeading = await element(by.xpath(locators.BluetoothLight.AddModal.Heading));
-        const BTIDLabel = await element(by.xpath(locators.BluetoothLight.AddModal.BTID_Label));
-        const BTIDInput = await element(by.xpath(locators.BluetoothLight.AddModal.BTID_Input));
-        const BranchLabel = await element(by.xpath(locators.BluetoothLight.AddModal.Branch_Label));
-        const branchDropdown = await element(by.xpath(locators.BluetoothLight.AddModal.Branch_Dropdown));
-        const UnitLabel = await element(by.xpath(locators.BluetoothLight.AddModal.Unit_Label));
-        const unitDropdown = await element(by.xpath(locators.BluetoothLight.AddModal.Unit_Dropdown));
-        const cancelBtn = await element(by.xpath(locators.BluetoothLight.AddModal.Cancel_Btn));
-        const addBtn = await element(by.xpath(locators.BluetoothLight.AddModal.AddLight_Btn));
-        const closeBtn = await element(by.xpath(locators.BluetoothLight.AddModal.CloseIcon_Btn));
-
-        const elementsToCheck = [modalHeading, BTIDLabel, BTIDInput, BranchLabel, branchDropdown, UnitLabel, unitDropdown, cancelBtn, addBtn, closeBtn];
-
-        const visible = await checkVisibilityOfElements(elementsToCheck);
-
-        expect(visible).toBe(true, "Elements not visible");
-
         await enterTextField(element(by.xpath(locators.BluetoothLight.AddModal.BTID_Input)), lightID);
 
+        const branchDropdown = await element(by.xpath(locators.BluetoothLight.AddModal.Branch_Dropdown));
         const branchDropdownOptions = await element.all(by.xpath(locators.BluetoothLight.AddModal.Branch_DropdownOptions));
 
         await selectDivDropdownOption(branchDropdown, branchDropdownOptions, branchName);
 
+        const unitDropdown = await element(by.xpath(locators.BluetoothLight.AddModal.Unit_Dropdown));
         const unitDropdownOptions = await element.all(by.xpath(locators.BluetoothLight.AddModal.Unit_DropdownOptions));
 
         await selectDivDropdownOption(unitDropdown, unitDropdownOptions, unitName);
 
+        const addBtn = await element(by.xpath(locators.BluetoothLight.AddModal.AddLight_Btn));
         await addBtn.click();
     }
 }

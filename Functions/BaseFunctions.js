@@ -41,7 +41,6 @@ async function selectDivDropdownOption(dropdown, options, text) {
     for (const option of options) {
         const optionText = await option.getText();
         if (optionText.toLowerCase().includes(text.toLowerCase())) {
-            console.log("Clicking on: ", optionText);
             await option.click();
             break;
         }
