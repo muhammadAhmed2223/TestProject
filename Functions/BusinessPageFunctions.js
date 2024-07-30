@@ -42,12 +42,11 @@ var BusinessPageFunctions = function () {
         
     }
 
-    const cancelBusinessModal = () => {
-        modal_AddEditBusiness.isDisplayed().then((check) => {
-            if (check) {
-                btn_CancelAddBusiness.click();
-            }
-        })
+    const cancelBusinessModal = async () => {
+        const check = await modal_AddEditBusiness.isDisplayed();
+        if (check) {
+            await btn_CancelAddBusiness.click();
+        }
     }
 
     const checkMandatoryField = (className, field) => {
@@ -58,22 +57,22 @@ var BusinessPageFunctions = function () {
         })
     }
 
-    this.performSearchBusiness = function (searchInput) {
-        cancelBusinessModal();
-        text_BusinessSearch.clear();
-        text_BusinessSearch.sendKeys(searchInput);
-        text_BusinessSearch.sendKeys(protractor.Key.ENTER);
+    this.performSearchBusiness = async function (searchInput) {
+        await cancelBusinessModal();
+        await text_BusinessSearch.clear();
+        await text_BusinessSearch.sendKeys(searchInput);
+        await text_BusinessSearch.sendKeys(protractor.Key.ENTER);
     }
 
     this.businessSearchPositive = async (searchField) => {
-        this.performSearchBusiness(searchField);
+        await this.performSearchBusiness(searchField);
         await browser.sleep(700);
         var check = await this.isBusinessInGrid(searchField);
         expect(check).toBe(true);
     }
 
     this.businessSearchNegative = async (searchField) => {
-        this.performSearchBusiness(searchField);
+        await this.performSearchBusiness(searchField);
         await browser.sleep(700);
         var check = await this.isBusinessInGrid(searchField);
         expect(check).toBe(false);
@@ -93,7 +92,7 @@ var BusinessPageFunctions = function () {
     }
 
     this.isBusinessInGrid = async function (searchInput) {
-        cancelBusinessModal();
+        await cancelBusinessModal();
         const gridItems = await gridContainer.all(by.tagName("h2"));
 
         for (const gridItem of gridItems) {
@@ -161,7 +160,7 @@ var BusinessPageFunctions = function () {
     
 
     this.performAddBusiness = async function (businessName, businessCode, officePhone, email, country, address1, address2, city, state, zip, CSC, vstSystem, freeAnalysis, noOfSensors,  userRestriction, additionalRate) {
-        cancelBusinessModal();
+        await cancelBusinessModal();
         btn_AddBusiness.click();
         
         await browser.sleep(1000);
@@ -198,9 +197,9 @@ var BusinessPageFunctions = function () {
 
             for (const gridItem of gridItems) {
                 const title = await gridItem.getText();
-                var check = title.toLowerCase().includes(searchInput.toLowerCase());
+                var check = title.toLowerCase().includes(businessName.toLowerCase());
                 if (check) {
-                    gridItem.click();
+                    await gridItem.click();
                     return true;
                 }
             }

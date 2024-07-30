@@ -35,4 +35,12 @@ describe("Business Tests", () => {
                 dataElement.additionalRate);
         }
     });
+
+    it("Go to Business Test", async () => {
+        const correctData = data.good;
+
+        for (const dataElement of correctData) {
+            await BusinessPageFunctions.goToBusiness(dataElement.openBusiness);
+        }
+    })
 });

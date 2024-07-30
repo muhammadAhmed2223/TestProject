@@ -1,5 +1,4 @@
 const pageData = require("../DataAccess/LoginPage.json");
-const {loadCredentials, loadToken, authorize, listMessages} = require('../GmailReader/code.js');
 
 var LoginPageFunctions = function () {
 
