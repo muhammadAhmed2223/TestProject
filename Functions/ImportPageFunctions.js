@@ -118,7 +118,7 @@ var ImportPageFunctions = function () {
         return false;
     }
 
-    //Only first pagination of Light Table. Need to implement logic for all page search
+    //Only first pagination of Light Table
     this.doesLightExistOnPage = async (lightID) => {
         const lightRows = await element.all(by.xpath(locators.BluetoothLight.LightsRows + "//label"));
 
