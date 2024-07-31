@@ -58,14 +58,57 @@
                 "BluetoothLight":{
                     "LightID":"PRN001",
                     "BranchID":"Auto_branch",
-                    "Unit":"4"
+                    "Unit":"5",
+                    "dataCat":"Duplicate Light ID"
                 }
             },
             {
                 "BluetoothLight":{
                     "LightID":"",
                     "BranchID":"",
-                    "Unit":""
+                    "Unit":"",
+                    "dataCat":"All Data Empty"
+                }
+            },
+            {
+                "BluetoothLight":{
+                    "LightID":"",
+                    "BranchID":"Auto_branch",
+                    "Unit":"5",
+                    "dataCat":"Light ID Empty"
+                }
+            },
+            {
+                "BluetoothLight":{
+                    "LightID":"PRN502",
+                    "BranchID":"",
+                    "Unit":"5",
+                    "dataCat":"Branch ID Empty"
+                }
+            },
+            {
+                "BluetoothLight":{
+                    "LightID":"PRN503",
+                    "BranchID":"Auto_branch",
+                    "Unit":"",
+                    "dataCat":"Unit Empty"
+                }
+            },
+            {
+                "BluetoothLight":{
+                    "LightID":"PRN5$$",
+                    "BranchID":"Auto_branch",
+                    "Unit":"5",
+                    "dataCat":"Special Characters in Light ID"
+                }
+            }
+            ,
+            {
+                "BluetoothLight":{
+                    "LightID":"PRN5",
+                    "BranchID":"Auto_branch",
+                    "Unit":"5",
+                    "dataCat":"Less than 6 characters in Light ID"
                 }
             }
         ]

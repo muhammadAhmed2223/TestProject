@@ -14,6 +14,14 @@ describe("Imports Page Functions", () => {
         await ImportPageFunctions.verifyAddLightModal();
     });
 
+    fit("Add Light Test Negative", async () => {
+        const incorrectData = pageData.data.bad;
+
+        for (const dataElement of incorrectData) {
+            await ImportPageFunctions.addLightNegative(dataElement.BluetoothLight.LightID, dataElement.BluetoothLight.BranchID, dataElement.BluetoothLight.Unit, dataElement.BluetoothLight.dataCat);
+        }
+    });
+
     fit("Add Light Test Positive", async () => {
         const correctData = pageData.data.good;
         for (const dataElement of correctData) {

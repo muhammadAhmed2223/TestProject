@@ -24,6 +24,13 @@ var ImportPageFunctions = function () {
         const addBtn = await element(by.xpath(locators.BluetoothLight.AddModal.AddLight_Btn));
         const closeBtn = await element(by.xpath(locators.BluetoothLight.AddModal.CloseIcon_Btn));
 
+        expect(BTIDInput.getAttribute('placeholder')).toContain('Notification Light ID', "Notification Light Input Placeholder not correct");
+        expect(branchDropdown.getText()).toContain('Select a Branch', "Branch Dropdown Placeholder nor correct");
+
+        expect(BTIDLabel.getText()).toContain('*', "Bluetooth Light ID Label does not contain *");
+        expect(BranchLabel.getText()).toContain('*', "Branch Label does not contain *");
+        expect(UnitLabel.getText()).toContain('*', "Unit Label does not contain *");
+
         const elementsToCheck = [modalHeading, BTIDLabel, BTIDInput, BranchLabel, branchDropdown, UnitLabel, unitDropdown, cancelBtn, addBtn, closeBtn];
 
         const visible = await checkVisibilityOfElements(elementsToCheck);
@@ -35,10 +42,17 @@ var ImportPageFunctions = function () {
     }
 
     this.addLightPositive = async (lightID, branchName, unitName) => {
-        await this.addLight(lightID, branchName, unitName);
+        const message = await this.addLight(lightID, branchName, unitName);
         await browser.sleep(3000);
 
+        if (message !== "") {
+            expect(message).toEqual("", "Error: " + message);
+            return;
+        }
+
         const isSuccess = await element(by.xpath(locators.SuccessModal.Modal)).isPresent();
+
+        expect(isSuccess).toBe(true, "Success Modal not shown");
 
         if (isSuccess) {
             await element(by.xpath(locators.SuccessModal.Close_Btn)).click();
@@ -72,6 +86,52 @@ var ImportPageFunctions = function () {
         expect(isAdded).toBe(true, "Light not found");
     };
 
+    this.addLightNegative = async (lightID, branchName, unitName, dataCat) => {
+        const message = await this.addLight(lightID, branchName, unitName);
+        await browser.sleep(3000);
+
+        if (lightID === "" || branchName === "" || unitName === "") {
+            if (message === "Button Disabled") {
+                expect(message).not.toEqual("", dataCat + ": Empty Fields should not be allowed");
+                return;
+            }
+        }
+
+        const isSuccess = await element(by.xpath(locators.SuccessModal.Modal)).isPresent();
+
+        expect(isSuccess).toBe(false, dataCat + ": Success Modal shown");
+
+        if (isSuccess) {
+            await element(by.xpath(locators.SuccessModal.Close_Btn)).click();
+            await browser.sleep(5000);
+        }
+
+        const isFailed = await element(by.xpath(locators.ErrorModal.Modal)).isPresent();
+
+        expect(isFailed).toBe(true, dataCat + ": Fail Modal not shown");
+
+        if (isFailed) {
+            await element(by.xpath(locators.ErrorModal.Close_Btn)).click();
+            await browser.sleep(2000);
+            await element(by.xpath(locators.BluetoothLight.AddModal.Cancel_Btn)).click();
+            await browser.sleep(2000);
+        }
+
+        const check = await this.lightModalError();
+        
+        expect(check).toBe(true, dataCat + ": Invalid entry considered valid");
+
+        if (check || isFailed) {
+            return;
+        }
+
+        await browser.sleep(2000);
+
+        const isAdded = await this.lightPagesSearch(lightID);
+
+        expect(isAdded).toBe(false, dataCat + ": Light found");
+    }
+
     this.cancelAddLight = async () => {
         const modalAddLight = await element(by.xpath(locators.BluetoothLight.AddModal.Modal));
         const visible  = await modalAddLight.isPresent();
@@ -98,11 +158,12 @@ var ImportPageFunctions = function () {
 
     this.lightPagesSearch = async (lightID) => {
         await this.cancelAddLight();
-        // const firstPageClickable = await element(by.xpath(locators.BluetoothLight.PageFirst)).isEnabled();
-        // if (firstPageClickable) {
-        //     await element(by.xpath(locators.BluetoothLight.PageFirst)).click();
-        //     await browser.sleep(2000);
-        // }
+        const firstBtn = await element(by.xpath(locators.BluetoothLight.PageFirst));
+        const firstPageClickable = await firstBtn.isEnabled();
+        if (firstPageClickable) {
+            await element(by.xpath(locators.BluetoothLight.PageFirst)).click();
+            await browser.sleep(2000);
+        }
         const lastBtn = await element(by.xpath(locators.BluetoothLight.PageLast));
         var enabled = await lastBtn.isEnabled();
         while (enabled) {
@@ -143,15 +204,35 @@ var ImportPageFunctions = function () {
         const branchDropdown = await element(by.xpath(locators.BluetoothLight.AddModal.Branch_Dropdown));
         const branchDropdownOptions = await element.all(by.xpath(locators.BluetoothLight.AddModal.Branch_DropdownOptions));
 
-        await selectDivDropdownOption(branchDropdown, branchDropdownOptions, branchName);
+        if (branchName !== "") {
+            await selectDivDropdownOption(branchDropdown, branchDropdownOptions, branchName);
+        }
 
         const unitDropdown = await element(by.xpath(locators.BluetoothLight.AddModal.Unit_Dropdown));
         const unitDropdownOptions = await element.all(by.xpath(locators.BluetoothLight.AddModal.Unit_DropdownOptions));
 
-        await selectDivDropdownOption(unitDropdown, unitDropdownOptions, unitName);
+        const unitEnabled = await unitDropdown.isEnabled();
+
+        if (unitEnabled) {
+            if (unitName !== "") {
+                await selectDivDropdownOption(unitDropdown, unitDropdownOptions, unitName);
+            }
+        }
+        else {
+            return "Dropdown Disabled";
+        }
 
         const addBtn = await element(by.xpath(locators.BluetoothLight.AddModal.AddLight_Btn));
-        await addBtn.click();
+        const btnEnabled = await addBtn.isEnabled();
+        if (btnEnabled) {
+            await addBtn.click();
+        }
+        else {
+            await this.cancelAddLight();
+            return "Button Disabled";
+        }
+
+        return "";
     }
 }
 
